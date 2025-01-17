@@ -40,21 +40,22 @@ private String[] arr={"ram","syam","jay","ramendra","vivek"};
                         for(int i=0;i< songs.size();i++){
                             items[i]=songs.get(i).getName().replace(".m4a","");
                         }
-                        ArrayAdapter<String> ad=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,items);
+                        //ArrayAdapter<String> ad=new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,items);
+                        MyAdapter ad1=new MyAdapter(MainActivity.this,R.layout.songadapter,songs);
                         listView=findViewById(R.id.listView);
-                        listView.setAdapter(ad);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                String currentsong=listView.getItemAtPosition(position).toString();
-                                Intent intent=new Intent(MainActivity.this,musicplay.class);
-                                intent.putExtra("songs",songs);
-                                intent.putExtra("currents",currentsong);
-                                intent.putExtra("position",position);
-                                startActivity(intent);
-
-                            }
-                        });
+                        listView.setAdapter(ad1);
+//                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                String currentsong=listView.getItemAtPosition(position).toString();
+//                                Intent intent=new Intent(MainActivity.this,musicplay.class);
+//                                intent.putExtra("songs",songs);
+//                                intent.putExtra("currents",currentsong);
+//                                intent.putExtra("position",position);
+//                                startActivity(intent);
+//
+//                            }
+//                        });
                     }
 
                     @Override
@@ -77,7 +78,7 @@ private String[] arr={"ram","syam","jay","ramendra","vivek"};
                     arrayList.addAll(fetchSong(myfile));
                 }
                 else{
-                    if(myfile.getName().endsWith(".m4a") && !myfile.getName().startsWith(".")){
+                    if((myfile.getName().endsWith(".m4a") || myfile.getName().endsWith(".mp3")) && !myfile.getName().startsWith(".")){
                         arrayList.add(myfile);
                     }
                 }
